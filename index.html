@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dayflow To Do</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Auth / sign-in page -->
+<div id="authPage" class="auth-page">
+    <div class="auth-hero">
+        <div class="auth-overlay"></div>
+        <div class="auth-content">
+            <div class="auth-center">
+                <h1 class="auth-title">Dayflow</h1>
+                <p class="auth-subtitle">Turn your days into a gentle, aesthetic flow of tasks, plans and dreams.</p>
+
+                <div class="auth-card">
+                    <div class="auth-tabs">
+                        <button type="button" class="auth-tab active" data-mode="login">Login</button>
+                        <button type="button" class="auth-tab" data-mode="register">Register</button>
+                    </div>
+                    <p class="auth-card-sub">Step into your own board or create a fresh one.</p>
+
+                    <form id="loginForm" class="auth-form active">
+                        <label>
+                            Email
+                            <input type="email" id="loginEmail" required placeholder="you@example.com">
+                        </label>
+                        <label>
+                            Password
+                            <div class="password-row">
+                                <input type="password" id="loginPassword" required placeholder="••••••••">
+                                <button type="button" class="password-eye" data-target="loginPassword">👁</button>
+                            </div>
+                        </label>
+                        <button type="submit" class="auth-submit">Login</button>
+                    </form>
+
+                    <form id="registerForm" class="auth-form">
+                        <label>
+                            Name
+                            <input type="text" id="registerName" required placeholder="Your name">
+                        </label>
+                        <label>
+                            Email
+                            <input type="email" id="registerEmail" required placeholder="you@example.com">
+                        </label>
+                        <label>
+                            Password
+                            <div class="password-row">
+                                <input type="password" id="registerPassword" required placeholder="Create a password">
+                                <button type="button" class="password-eye" data-target="registerPassword">👁</button>
+                            </div>
+                        </label>
+                        <label class="remember-row">
+                            <input type="checkbox" id="rememberCredentials">
+                            <span>Save credentials on this device</span>
+                        </label>
+                        <button type="submit" class="auth-submit">Register</button>
+                    </form>
+
+                    <p id="authError" class="auth-error"></p>
+                </div>
+            </div>
+
+            <div class="auth-features">
+                <div class="auth-feature-card">
+                    <h3>Visual boards</h3>
+                    <p>Attach mood images, drag cards around and make your to‑dos feel like a Pinterest board.</p>
+                </div>
+                <div class="auth-feature-card">
+                    <h3>Smart focus</h3>
+                    <p>Filters for today, pending, completed and overdue keep you looking at what matters.</p>
+                </div>
+                <div class="auth-feature-card">
+                    <h3>Motivating streaks</h3>
+                    <p>Daily completion streaks and early‑bird kudos keep you gently accountable.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="app-shell">
+    <!-- Left sidebar: filters + streak -->
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-mark"></span>
+            <span class="brand-text">Dayflow</span>
+        </div>
+
+        <div class="streak-card">
+            <div class="streak-label">Day streak</div>
+            <div class="streak-current" id="streakCurrent">0</div>
+            <div class="streak-best">Best: <span id="streakBest">0</span> days</div>
+        </div>
+
+        <nav class="sidebar-filters" id="sidebarFilters">
+            <button class="filter-btn active" data-filter="all">All tasks</button>
+            <button class="filter-btn" data-filter="current">Today / current</button>
+            <button class="filter-btn" data-filter="pending">Pending</button>
+            <button class="filter-btn" data-filter="completed">Completed</button>
+            <button class="filter-btn" data-filter="overdue">Overdue</button>
+            <button class="filter-btn" data-filter="high">High priority</button>
+            <button id="logoutBtn" class="filter-btn logout-btn">Logout</button>
+        </nav>
+    </aside>
+
+    <!-- Main board -->
+    <main class="main-panel">
+        <div class="top-bar">
+            <input type="text" id="search" placeholder="Search by task, category, priority or date...">
+            <button id="darkToggle">Dark Mode</button>
+        </div>
+
+        <div class="container">
+            <h1 id="boardTitle">Vision Board To‑Do</h1>
+
+            <div class="add-category">
+                <input type="text" id="categoryInput" placeholder="New Category (e.g. Work, Personal, Study)">
+                <button id="addCategory">Add</button>
+            </div>
+
+            <div id="categories"></div>
+        </div>
+    </main>
+
+    <!-- Right background column -->
+    <aside class="bg-panel">
+        <div class="bg-selector">
+            <h3 class="bg-panel-title">📌Board background</h3>
+            <div class="bg-options">
+                <img src="https://i.pinimg.com/1200x/86/a5/ce/86a5ced74bd2c4fceb3c12034f62ce8f.jpg" data-bg="https://i.pinimg.com/1200x/86/a5/ce/86a5ced74bd2c4fceb3c12034f62ce8f.jpg" alt="Background 1">
+                <img src="https://i.pinimg.com/1200x/34/a6/39/34a6399d9d2671b4ff99aa431cc0f6dd.jpg" data-bg="https://i.pinimg.com/1200x/34/a6/39/34a6399d9d2671b4ff99aa431cc0f6dd.jpg" alt="Background 2">
+                <img src="https://i.pinimg.com/736x/2d/17/f2/2d17f2d703ae271fde7ae9fb3020ac7e.jpg" data-bg="https://i.pinimg.com/736x/2d/17/f2/2d17f2d703ae271fde7ae9fb3020ac7e.jpg" alt="Background 3">
+                <img src="https://i.pinimg.com/1200x/d9/b1/a1/d9b1a1416f466987cc2491c8ce5f83a3.jpg" data-bg="https://i.pinimg.com/1200x/d9/b1/a1/d9b1a1416f466987cc2491c8ce5f83a3.jpg" alt="Background 4">
+                <img src="https://i.pinimg.com/736x/ec/c1/1f/ecc11f62a8ba1f167f89d7935e86da2e.jpg" data-bg="https://i.pinimg.com/736x/ec/c1/1f/ecc11f62a8ba1f167f89d7935e86da2e.jpg" alt="Background 5">
+                <img src="https://i.pinimg.com/1200x/28/9d/70/289d70fa90c7fb29639e30c270eebe98.jpg" data-bg="https://i.pinimg.com/1200x/28/9d/70/289d70fa90c7fb29639e30c270eebe98.jpg" alt="Background 6">
+                <img src="https://i.pinimg.com/736x/d0/90/a9/d090a95f4c5cb6ee54d9fb02e927c1b7.jpg" data-bg="https://i.pinimg.com/736x/d0/90/a9/d090a95f4c5cb6ee54d9fb02e927c1b7.jpg" alt="Background 7">
+                <img src="https://i.pinimg.com/1200x/59/52/44/595244022de34a185f9f5709d01886a5.jpg" data-bg="https://i.pinimg.com/1200x/59/52/44/595244022de34a185f9f5709d01886a5.jpg" alt="Background 8">
+                <img src="https://i.pinimg.com/736x/08/d3/70/08d370c30cf6608fadc8d8a911f49a70.jpg" data-bg="https://i.pinimg.com/736x/08/d3/70/08d370c30cf6608fadc8d8a911f49a70.jpg" alt="Background 9">
+                <img src="https://i.pinimg.com/1200x/3a/aa/48/3aaa48d291101f854431bd703600ca43.jpg" data-bg="https://i.pinimg.com/1200x/3a/aa/48/3aaa48d291101f854431bd703600ca43.jpg" alt="Background 10">
+            </div>
+        </div>
+    </aside>
+</div>
+
+<div id="imageModal" class="image-modal">
+    <div class="image-modal-backdrop"></div>
+    <div class="image-modal-content">
+        <img id="imageModalImg" src="" alt="Task image preview">
+    </div>
+</div>
+
+<div id="toastContainer"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
